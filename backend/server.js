@@ -4,12 +4,16 @@ const dotenv = require('dotenv');
 const path = require('path');
 
 // Carregar variáveis de ambiente
-dotenv.config();
+const env = process.env.NODE_ENV || 'development';
+dotenv.config({ path: `.env.${env}` });
+
+process.env.PORT = process.env.PM2_PORT || process.env.PORT;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const ENVIRONMENT = process.env.ENVIRONMENT || 'BLUE';
-
+const TESTE = process.env.TESTE || 'BLUE';
+console.log('Variável TESTE:', TESTE);
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -121,6 +125,8 @@ app.use('*', (req, res) => {
 
 // Iniciar servidor
 app.listen(PORT, () => {
+
+
     console.log(`\n🚀 Server running on port ${PORT}`);
     console.log(`🌍 Environment: ${ENVIRONMENT}`);
     console.log(`📋 Available endpoints:`);

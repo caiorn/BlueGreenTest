@@ -7,9 +7,9 @@
         "dev": "node --env-file=.env.dev --watch server.js",
         "blue": "node --env-file=.env.blue --watch server.js",
         "green": "node --env-file=.env.green --watch server.js",
-        "pm2-dev": "pm2 start server.js --name dev -i 1 --env-file .env.dev --watch",
-        "pm2-blue": "pm2 start server.js --name blue -i 2 --env-file .env.blue --watch",
-        "pm2-green": "pm2 start server.js --name green -i 2 --env-file .env.green --watch"
+        "pm2-dev": "pm2 start ecosystem.config.js --only dev",
+        "pm2-blue": "pm2 start ecosystem.config.js --only blue",
+        "pm2-green": "pm2 start ecosystem.config.js --only green"
     },
     "keywords": [
         "blue-green",
@@ -20,7 +20,7 @@
     "license": "ISC",
     "dependencies": {
         "cors": "^2.8.5",
-        "dotenv": "^16.3.1",
+        "dotenv": "^16.6.1",
         "express": "^4.18.2"
     }
 }
