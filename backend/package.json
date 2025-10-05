@@ -4,9 +4,9 @@
     "description": "Backend simples para testes de Blue Green Deployment",
     "main": "server.js",
     "scripts": {
-        "dev": "node --env-file=.env.dev --watch server.js",
-        "blue": "node --env-file=.env.blue --watch server.js",
-        "green": "node --env-file=.env.green --watch server.js",
+        "dev": "node --env-file=.env.development --watch server.js",
+        "blue": "node --env-file=.env.production --watch server.js",
+        "green": "node --env-file=.env.production --watch server.js",
         "pm2-dev": "pm2 start ecosystem.config.js --only dev",
         "pm2-blue": "pm2 start ecosystem.config.js --only blue",
         "pm2-green": "pm2 start ecosystem.config.js --only green"

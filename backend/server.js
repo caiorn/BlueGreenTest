@@ -32,10 +32,12 @@ app.use((req, res, next) => {
 
 // Rota de status
 app.get('/status', (req, res) => {
+    const test = "aee";
     const uptime = Math.floor((Date.now() - startTime) / 1000);
     
     res.json({
         status: 'OK',
+        test,
         environment: ENVIRONMENT,
         timestamp: new Date().toISOString(),
         uptime: uptime,

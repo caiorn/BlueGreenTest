@@ -9,6 +9,7 @@ module.exports = {
       ignore_watch: ["node_modules", "logs", "public", "uploads", "tmp"],
       instances: 1,
       exec_mode: "fork", // dev geralmente não precisa de cluster
+      interpreter: "node",
       // .env.development prevalecerá caso já exista
       env: {
         NODE_ENV: "development",

@@ -1,4 +1,7 @@
-const API_BASE_URL = 'http://localhost:3001';
+
+// Defina aqui o tipo do frontend: 'blue', 'green', 'antigo', 'novo'
+const FRONTEND_TYPE = 'blue'; // altere para 'green', 'antigo' ou 'novo' conforme necessário
+const API_BASE_URL = 'http://localhost:3002';
 
 // Elementos DOM
 const checkStatusBtn = document.getElementById('checkStatus');
@@ -113,8 +116,65 @@ async function runStressTest() {
 checkStatusBtn.addEventListener('click', checkServerStatus);
 stressTestBtn.addEventListener('click', runStressTest);
 
-// Verificar status automaticamente ao carregar a página
+
+// Intervalo de checagem automática (em segundos)
+let statusCheckIntervalSec = 10; // valor padrão
+let statusCheckTimer = null;
+
+function startAutoStatusCheck() {
+    // Limpa timer anterior se existir
+    if (statusCheckTimer) clearInterval(statusCheckTimer);
+    statusCheckTimer = setInterval(checkServerStatus, statusCheckIntervalSec * 1000);
+}
+
+
+// Função para aplicar cor e aviso visual do frontend
+function applyFrontendStyle() {
+    let color = '';
+    let text = '';
+    switch (FRONTEND_TYPE) {
+        case 'blue':
+            color = '#e3f2fd';
+            text = 'SPA BLUE (Frontend Antigo)';
+            break;
+        case 'green':
+            color = '#e8f5e8';
+            text = 'SPA GREEN (Frontend Novo)';
+            break;
+        case 'antigo':
+            color = '#fffbe6';
+            text = 'SPA Antigo';
+            break;
+        case 'novo':
+            color = '#e0f7fa';
+            text = 'SPA Nova';
+            break;
+        default:
+            color = '#ffffff';
+            text = 'SPA (Sem identificação)';
+    }
+    document.body.style.background = color;
+    // Adiciona banner no topo
+    let banner = document.createElement('div');
+    banner.textContent = text;
+    banner.style.position = 'fixed';
+    banner.style.top = '0';
+    banner.style.left = '0';
+    banner.style.width = '100%';
+    banner.style.padding = '12px 0';
+    banner.style.textAlign = 'center';
+    banner.style.fontWeight = 'bold';
+    banner.style.fontSize = '1.2em';
+    banner.style.zIndex = '9999';
+    banner.style.background = color;
+    banner.style.borderBottom = '2px solid #bbb';
+    banner.style.boxShadow = '0 2px 8px rgba(0,0,0,0.07)';
+    document.body.prepend(banner);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    applyFrontendStyle();
     addLog('Aplicação carregada');
     checkServerStatus();
+    startAutoStatusCheck();
 });
